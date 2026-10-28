@@ -1,0 +1,17 @@
+digraph UML {
+  graph [rankdir=BT, bgcolor="white", pad=0.35, nodesep=0.65, ranksep=0.78,
+         fontname="DejaVu Sans", fontsize=22,
+         label="MÓDULO DEPARTAMENTOS — DIAGRAMA DE CLASES (AVANCE 3)", labelloc=t];
+  node [shape=record, style="rounded,filled", fontsize=13, fontname="DejaVu Sans",
+        penwidth=1.6, color="#37689D", fillcolor="#EEF5FC", margin="0.20,0.17"];
+  edge [fontname="DejaVu Sans", fontsize=12, color="#456C91", arrowsize=0.95, penwidth=1.35];
+  departamento [label="{Departamento|+ Codigo: string\l+ Nombre: string\l+ Ubicacion: string\l+ Encargado: string\l|+ Departamento()\l+ Departamento(codigo, nombre, ubicacion, encargado)\l+ Validar(): void\l}"];
+  contrato [color="#438354", fillcolor="#E7F4E9",
+    label="{«interface» IRepositorio\<T\>|+ Agregar(T): void\l+ ObtenerTodos(): BindingList\<T\>\l+ Actualizar(T): void\l+ Eliminar(T): void\l}"];
+  generico [label="{RepositorioBase\<T\>|# _entidades: BindingList\<T\>\l+ RutaArchivo: string\l|+ Agregar(T): void\l+ ObtenerTodos(): BindingList\<T\>\l+ Actualizar(T): void\l+ Eliminar(T): void\l+ Guardar(): void\l+ Leer(): void\l# ValidarDatos(datos): void\l}"];
+  concreto [color="#BA8638", fillcolor="#FFF4E5",
+    label="{RepositorioDepartamentos|+ RepositorioDepartamentos(rutaArchivo?)\l|+ Agregar(Departamento): void\l+ Actualizar(Departamento): void\l+ Eliminar(Departamento): void\l+ BuscarPorCodigo(codigo): Departamento?\l+ BuscarTexto(texto): BindingList\<Departamento\>\l}"];
+  concreto -> generico [arrowhead=empty, label="herencia"];
+  generico -> contrato [style=dashed, arrowhead=empty, label="implementa"];
+  concreto -> departamento [style=dashed, arrowhead=vee, label="gestiona"];
+}
